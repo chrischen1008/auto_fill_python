@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait,Select
 from selenium.webdriver.support import expected_conditions as EC
 
 #! chrome 方法(chromedriver版本問題存在) : selenium需從版本4降到3(pip install selenium==3.3.1)
@@ -19,7 +19,8 @@ from webdriver_manager.firefox import GeckoDriverManager
 
 driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
 # driver.get("http://www.google.com") # 更改網址以前往不同網頁
-driver.get(r'C:\Users\windows user\Desktop\auto_fill_data_html\index.html')
+# driver.get(r'C:\Users\windows user\Desktop\auto_fill_data_html\index.html')
+driver.get(r'file:///C:\Users\windows%20user\Desktop\auto_fill_python\auto_fill_data_html/index.html')
 login_element_fname = driver.find_element(By.ID, 'fname')
 login_element_lname = driver.find_element(By.ID, 'lname')
 login_element_fname.send_keys('測試填入資料01')
@@ -37,6 +38,15 @@ first_element_prod_id = driver.find_element(By.ID, 'prod_id')
 first_element_prod_name = driver.find_element(By.ID, 'prod_name')
 first_element_prod_id.send_keys('商品編號001')
 first_element_prod_name.send_keys('商品名稱002')
+
+#! 下拉選單填值(兩種方法皆可)，需與option value=相同
+first_element_dropdown = Select(driver.find_element(By.ID, 'cars'))
+first_element_dropdown.select_by_value('audi')
+
+# first_element_dropdown = Select(driver.find_element_by_xpath("//select[@id='cars']"))
+# first_element_dropdown.select_by_value('saab')
+
+#
 first_element_submit = driver.find_element(By.ID, 'nextPage').click() #! .submit() 或 .click()也可以
 # first_element_submit.submit()
 
